@@ -1,5 +1,6 @@
 import Draft from "../components/icons/Draft";
 import RightUpArrow from "../components/icons/RightUpArrow";
+import Tick from "../components/icons/Tick";
 export default function CreateForm() {
   return (
     <main className="w-[640px] mx-auto h-screen flex flex-col overflow-hidden">
@@ -31,9 +32,12 @@ export default function CreateForm() {
           </span>
         </button>
 
-        <button className="h-8 border-[1px] border-gray-200 rounded-xl pr-[14px] pl-4 flex items-center gap-2 hover:bg-gray-50">
-          <span className="text-gray-400 font-semibold text-sm">Preview</span>
-          <RightUpArrow />
+        <button className="h-8 border-[1px] border-gray-200 rounded-xl pr-[14px] pl-4 flex items-center gap-2 hover:bg-gray-50 bg-[#219653] opacity-50">
+          <Tick />
+
+          <span className="text-white font-semibold text-sm ">
+            Publish form
+          </span>
         </button>
       </section>
     </main>
