@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Your App Name",
-  description: "Your app description",
+  title: "Form Builder",
+  description: "This can be used to build forms",
 };
 
 export default function RootLayout({ children }) {
