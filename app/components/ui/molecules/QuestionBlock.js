@@ -12,12 +12,20 @@ import SingleSelectIcon from "../../icons/SingleSelectIcon";
 import UrlIcon from "../../icons/UrlIcon";
 import NumberIcon from "../../icons/NumberIcon";
 
+const QuestionTypes = {
+  shortAnswer: ShortAnswerInput,
+  longAnswer: LongAnswerInput,
+  singleLine: SingleSelectionInput,
+  url: UrlInput,
+  number: NumberInput,
+};
+
 const QuestionIcons = {
+  shortAnswer: ShortAnswerIcon,
   longAnswer: LongAnswerIcon,
   singleLine: SingleSelectIcon,
-  number: NumberIcon,
   url: UrlIcon,
-  shortAnswer: ShortAnswerIcon,
+  number: NumberIcon,
 };
 
 const QuestionTypeDropdown = ({ isOpen, onClose, onSelect, position }) => {
@@ -128,7 +136,7 @@ const QuestionHeader = ({
           className="outline-none border-0 font-normal text-xs w-full overflow-x-auto whitespace-nowrap"
         />
       </div>
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center gap-2">
         <button 
           className="flex items-center"
           onClick={handleDropdownClick}
@@ -149,15 +157,10 @@ const QuestionHeader = ({
   );
 };
 
-const QuestionTypes = {
-  longAnswer: LongAnswerInput,
-  singleLine: SingleSelectionInput,
-  number: NumberInput,
-  url: UrlInput,
-  shortAnswer: ShortAnswerInput,
-};
-
 const QuestionBlock = ({ id, type, questionText, helpText, options, onUpdate }) => {
+  console.log('QuestionBlock type:', type);
+  console.log('Available types:', Object.keys(QuestionTypes));
+  
   const InputComponent = QuestionTypes[type];
 
   const handleQuestionTextChange = (e) => {
@@ -180,7 +183,7 @@ const QuestionBlock = ({ id, type, questionText, helpText, options, onUpdate }) 
         helpText={helpText}
         onQuestionTextChange={handleQuestionTextChange}
         onHelpTextChange={handleHelpTextChange}
-        onTypeChange={(newType) => onUpdate({ type: newType })}
+        onTypeChange={(updates) => onUpdate({ ...updates })}
       />
       {InputComponent && (
         <InputComponent 
