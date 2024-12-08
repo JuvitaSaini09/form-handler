@@ -25,12 +25,23 @@ const QuestionTypeDropdown = ({ isOpen, onClose, onSelect, position }) => {
 
   return (
     <div 
-      className="fixed inset-0" 
+      className="fixed inset-0 bg-black/30 transition-opacity duration-200" 
       onClick={onClose}
     >
       <div 
-        className="absolute w-[300px] border-[1px] border-gray-200 rounded-2xl p-1 bg-white"
-        style={{ top: position.y, left: position.x }}
+        className="absolute w-[300px] border-[1px] border-gray-200 rounded-2xl p-1 bg-white animate-slideIn"
+        style={{ 
+          top: position.y, 
+          maxWidth: 'calc(100vw - 32px)',
+          ...(!window.matchMedia('(min-width: 640px)').matches 
+            ? {
+                right: '16px',  // 16px from right on mobile
+              }
+            : {
+                left: position.x,
+              }
+          )
+        }}
       >
         <div className="px-4 py-2 bg-gray-50 rounded-lg">
           <h3 className="text-[12px] font-semibold text-gray-500">
@@ -75,11 +86,25 @@ const QuestionHeader = ({
   const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
   const IconComponent = QuestionIcons[type];
 
+  const handleTypeChange = (newType) => {
+    // Reset 
+    onTypeChange({
+      type: newType,
+      questionText: "",
+      helpText: "",
+      options: newType === 'singleLine' ? ['', ''] : [],
+      isValid: false
+    });
+    setDropdownOpen(false);
+  };
+
   const handleDropdownClick = (e) => {
     e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
+    const isMobile = !window.matchMedia('(min-width: 640px)').matches;
+    
     setDropdownPosition({ 
-      x: rect.left, 
+      x: isMobile ? undefined : rect.left,
       y: rect.bottom + 5 
     });
     setDropdownOpen(true);
@@ -117,10 +142,7 @@ const QuestionHeader = ({
       <QuestionTypeDropdown 
         isOpen={dropdownOpen}
         onClose={() => setDropdownOpen(false)}
-        onSelect={(newType) => {
-          onTypeChange(newType);
-          setDropdownOpen(false);
-        }}
+        onSelect={handleTypeChange}
         position={dropdownPosition}
       />
     </div>
@@ -158,7 +180,7 @@ const QuestionBlock = ({ id, type, questionText, helpText, options, onUpdate }) 
         helpText={helpText}
         onQuestionTextChange={handleQuestionTextChange}
         onHelpTextChange={handleHelpTextChange}
-        onTypeChange={(newType) => onUpdate({ type: newType })}
+        onTypeChange={(updates) => onUpdate(updates)}
       />
       {InputComponent && (
         <InputComponent 
