@@ -8,10 +8,10 @@ const Footer = ({ isValid }) => {
       <button 
         disabled={!isValid}
         className={`h-8 border-[1px] border-gray-200 rounded-xl pr-[14px] pl-4 flex items-center gap-2 
-          ${isValid ? 'hover:bg-gray-50' : 'opacity-50 cursor-not-allowed'}`}
+          ${isValid ? 'hover:bg-gray-50 text-[#0D0D0D]' : 'text-gray-400 cursor-not-allowed'}`}
       >
-        <Draft />
-        <span className="text-gray-400 font-semibold text-sm">
+        <Draft color={isValid ? '#0D0D0D' : '#959DA5'} />
+        <span className="font-semibold text-sm">
           Save as Draft
         </span>
       </button>
@@ -19,7 +19,7 @@ const Footer = ({ isValid }) => {
       <button 
         disabled={!isValid}
         className={`h-8 border-[1px] border-gray-200 rounded-xl pr-[14px] pl-4 flex items-center gap-2 
-          ${isValid ? 'bg-[#219653] hover:bg-[#1b7a44]' : 'bg-[#219653] opacity-50 cursor-not-allowed'}`}
+          ${isValid ? 'bg-[#00AA45] border-[#1E874B]' : 'bg-[#219653] opacity-50  cursor-not-allowed'}`}
       >
         <Tick />
         <span className="text-white font-semibold text-sm">Publish form</span>

@@ -14,10 +14,10 @@ const Header = ({ title, onTitleChange, isValid }) => {
       <button 
         disabled={!isValid}
         className={`h-8 border-[1px] border-gray-200 rounded-xl pr-[14px] pl-4 flex items-center gap-2 
-          ${isValid ? 'hover:bg-gray-50' : 'opacity-50 cursor-not-allowed'}`}
+          ${isValid ? 'hover:bg-gray-50 text-[#0D0D0D]' : 'text-gray-400 cursor-not-allowed'}`}
       >
-        <span className="text-gray-400 font-semibold text-sm">Preview</span>
-        <RightUpArrow />
+        <span className="font-semibold text-sm">Preview</span>
+        <RightUpArrow color={isValid ? '#0D0D0D' : '#959DA5'} />
       </button>
     </section>
   );

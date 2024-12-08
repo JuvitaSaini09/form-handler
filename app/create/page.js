@@ -13,7 +13,7 @@ export default function CreateForm() {
 
   const validateForm = (title, questions) => {
     // Basic validation
-    if (!title.trim() || questions.length === 0) return false;
+    if (title.trim().length === 0 || questions.length === 0) return false;
 
     // Validate each question
     return questions.every(question => {
@@ -31,15 +31,19 @@ export default function CreateForm() {
   };
 
   const handleTitleChange = (newTitle) => {
-    const newState = { ...formState, title: newTitle };
-    newState.isValid = validateForm(newTitle, formState.questions);
-    setFormState(newState);
+    setFormState(prevState => ({
+      ...prevState,
+      title: newTitle,
+      isValid: validateForm(newTitle, prevState.questions)
+    }));
   };
 
   const handleQuestionsChange = (newQuestions) => {
-    const newState = { ...formState, questions: newQuestions };
-    newState.isValid = validateForm(formState.title, newQuestions);
-    setFormState(newState);
+    setFormState(prevState => ({
+      ...prevState,
+      questions: newQuestions,
+      isValid: validateForm(prevState.title, newQuestions)
+    }));
   };
 
   return (
