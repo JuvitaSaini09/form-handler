@@ -1,18 +1,19 @@
-import ShortAnswer from "@/app/components/icons/ShortAnswerIcon";
-import LongAnswer from "@/app/components/icons/LongAnswerIcon";
-import SingleSelect from "@/app/components/icons/SingleSelectIcon";
-import Date from "@/app/components/icons/Date";
-import Url from "@/app/components/icons/UrlIcon";
+import UrlIcon from "@/app/components/icons/UrlIcon";
+import ShortAnswerIcon from "@/app/components/icons/ShortAnswerIcon";
+import SingleSelectIcon from "@/app/components/icons/SingleSelectIcon";
+import LongAnswerIcon from "@/app/components/icons/LongAnswerIcon";
+import NumberIcon from "@/app/components/icons/NumberIcon";
 
 const inputTypes = [
-  { type: 'short_answer', label: 'Short answer', Icon: ShortAnswer },
-  { type: 'long_answer', label: 'Long answer', Icon: LongAnswer },
-  { type: 'single_select', label: 'Single select', Icon: SingleSelect },
-  { type: 'url', label: 'URL', Icon: Url },
-  { type: 'date', label: 'Date', Icon: Date },
+  { type: 'shortAnswer', label: 'Short answer', Icon: ShortAnswerIcon },
+  { type: 'longAnswer', label: 'Long answer', Icon: LongAnswerIcon },
+  { type: 'singleLine', label: 'Single select', Icon: SingleSelectIcon },
+  { type: 'url', label: 'URL', Icon: UrlIcon },
+  { type: 'number', label: 'Number', Icon: NumberIcon },
 ];
 
-export default function InputTypeModal({ isOpen, onClose }) {
+
+export default function InputTypeModal({ isOpen, onClose, onSelect }) {
   if (!isOpen) return null;
 
   const handleBackdropClick = (e) => {
@@ -22,6 +23,7 @@ export default function InputTypeModal({ isOpen, onClose }) {
   };
 
   const handleTypeSelect = (type) => {
+    onSelect(type);
     onClose();
   };
 

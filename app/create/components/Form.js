@@ -6,17 +6,19 @@ import QuestionBlock from "@/app/components/ui/molecules/QuestionBlock";
 
 const Form = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen);
+  const [questions, setQuestions] = useState([]);
+
+  const handleAddQuestion = (type) => {
+    setQuestions([...questions, { id: Date.now(), type }]);
+    setIsModalOpen(false);
+  };
+
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
       <div className="min-h-[1150px] pt-6 flex flex-col gap-6">
-        {/* ----------- Question card ----------- */}
-        <QuestionBlock type="singleLine" />
-        <QuestionBlock type="shortAnswer" />
-        <QuestionBlock type="longAnswer" />
-        <QuestionBlock type="number" />
-        <QuestionBlock type="url" />
-        {/*------- End of Question card ------- */}
+        {questions.map((question) => (
+          <QuestionBlock key={question.id} type={question.type} />
+        ))}
 
         <div className="flex justify-center">
           <button
@@ -31,6 +33,7 @@ const Form = () => {
       <InputTypeModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onSelect={handleAddQuestion}
       />
     </section>
   );
