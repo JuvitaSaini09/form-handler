@@ -34,8 +34,8 @@ const Form = ({}) => {
     ),
     singleLine: (question) => (
       <div className="flex flex-col gap-3 mt-4">
-        {question.options?.map((option) => (
-          <label className="flex items-center gap-2 cursor-pointer">
+        {question.options?.map((option,index) => (
+          <label key={index} className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
               name={question.questionText}
@@ -54,8 +54,8 @@ const Form = ({}) => {
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
       <div className="min-h-[1150px] pt-6 flex flex-col gap-8">
-        {currentForm.questions.map((question) => (
-          <div className="flex flex-col gap-[4px]">
+        {currentForm.questions?.map((question,index) => (
+          <div key={index} className="flex flex-col gap-[4px]">
             <div className="font-semibold text-sm">{question.questionText}</div>
             {question.questionType === "singleLine"
               ? inputTypes[question.questionType](question)
