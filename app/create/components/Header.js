@@ -2,9 +2,10 @@ import RightUpArrow from "@/app/components/icons/RightUpArrow";
 import React from "react";
 import { useRouter } from 'next/navigation';
 
-const Header = ({ title, onTitleChange, isValid }) => {
+const Header = ({ title, onTitleChange, isValid, onPreview }) => {
   const router = useRouter();
   const handlePreviewClick=()=>{
+    onPreview();
     router.push('/preview');
   }
   return (

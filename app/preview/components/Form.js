@@ -1,33 +1,7 @@
 import { useFormContext } from "@/app/context/FormContext";
 
 const Form = ({}) => {
-
-  const {currentForm} = useFormContext();
-  console.log("currentForm",currentForm)
-  const questions = [
-    {
-      questionText: "What is your gender?",
-      questionType: "shortAnswer",
-    },
-    {
-      questionText: "What is your age?",
-      questionType: "longAnswer",
-    },
-    {
-      questionText: "What is your email?",
-      questionType: "url",
-    },
-    {
-      questionText: "What is your phone number?",
-      questionType: "number",
-    },
-
-    {
-      questionText: "What is your name?",
-      questionType: "singleLine",
-      options: ["Option 1", "Option 2","Option 3"],
-    },
-  ];
+  const { currentForm } = useFormContext();
 
   const inputTypes = {
     shortAnswer: (
@@ -46,17 +20,17 @@ const Form = ({}) => {
     ),
     url: (
       <input
-      type="url"
-      placeholder=""
-      className="h-8  w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200 "
-    />
+        type="url"
+        placeholder=""
+        className="h-8  w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200 "
+      />
     ),
     number: (
       <input
-      type="number"
-      placeholder=""
-      className="h-8  w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200 "
-    />
+        type="number"
+        placeholder=""
+        className="h-8  w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200 "
+      />
     ),
     singleLine: (question) => (
       <div className="flex flex-col gap-3 mt-4">
@@ -80,10 +54,10 @@ const Form = ({}) => {
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
       <div className="min-h-[1150px] pt-6 flex flex-col gap-8">
-        {questions.map((question) => (
+        {currentForm.questions.map((question) => (
           <div className="flex flex-col gap-[4px]">
             <div className="font-semibold text-sm">{question.questionText}</div>
-            {question.questionType === 'singleLine' 
+            {question.questionType === "singleLine"
               ? inputTypes[question.questionType](question)
               : inputTypes[question.questionType]}
           </div>

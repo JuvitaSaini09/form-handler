@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
+import { useFormContext } from "@/app/context/FormContext";
 import Footer from "./components/Footer";
 import Form from "./components/Form";
 import Header from "./components/Header";
 
 export default function CreateForm() {
+  const { updateCurrentForm, saveForm } = useFormContext();
   const [formState, setFormState] = useState({
     title: "",
     questions: [],
@@ -46,12 +48,26 @@ export default function CreateForm() {
     }));
   };
 
+  const handlePreview = () => {
+    const formData = {
+      title: formState.title,
+      questions: formState.questions.map(q => ({
+        questionText: q.questionText,
+        questionType: q.type,
+        options: q.type === "singleLine" ? q.options : [],
+      }))
+    };
+    updateCurrentForm(formData);
+    saveForm(formData);
+  };
+
   return (
     <main className="w-[640px] mx-auto h-screen flex flex-col overflow-hidden">
       <Header 
         title={formState.title} 
         onTitleChange={handleTitleChange}
         isValid={formState.isValid}
+        onPreview={handlePreview}
       />
       <Form 
         questions={formState.questions}

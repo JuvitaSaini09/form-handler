@@ -10,17 +10,9 @@ export function FormProvider({ children }) {
     questions: [],
   });
 
-  //pass question and type and optons in case of single line (radios button)
-  const updateCurrentForm = (question,type,options) => {
-    setCurrentForm(prev=>[...prev,{
-        questionText:question,
-        questionType:type,
-        options:type==="singleLine"?[...options]:[],
-    }]);
+  const updateCurrentForm = (formData) => {
+    setCurrentForm(formData);
   };
-
-
-
 
   const saveForm = (form) => {
     setForms(prevForms => [...prevForms, form]);
