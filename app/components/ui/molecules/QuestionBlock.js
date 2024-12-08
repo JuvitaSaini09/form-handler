@@ -112,23 +112,23 @@ const QuestionHeader = ({
 
   return (
     <div className="flex justify-between items-center gap-2 question-inputs">
-      <div>
+      <div className="flex-1">
         <input
           type="text"
           value={questionText}
           onChange={onQuestionTextChange}
           placeholder="Write a question"
-          className="outline-none border-0 font-semibold text-base w-full max-w-[300px] overflow-x-auto whitespace-nowrap"
+          className="outline-none border-0 font-semibold text-base w-full overflow-x-auto whitespace-nowrap"
         />
         <input
           type="text"
           value={helpText}
           onChange={onHelpTextChange}
           placeholder="Write a help text or caption (leave empty if not needed)."
-          className="outline-none border-0 font-normal text-xs w-full max-w-[300px] overflow-x-auto whitespace-nowrap"
+          className="outline-none border-0 font-normal text-xs w-full overflow-x-auto whitespace-nowrap"
         />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <button 
           className="flex items-center"
           onClick={handleDropdownClick}
@@ -180,7 +180,7 @@ const QuestionBlock = ({ id, type, questionText, helpText, options, onUpdate }) 
         helpText={helpText}
         onQuestionTextChange={handleQuestionTextChange}
         onHelpTextChange={handleHelpTextChange}
-        onTypeChange={(updates) => onUpdate(updates)}
+        onTypeChange={(newType) => onUpdate({ type: newType })}
       />
       {InputComponent && (
         <InputComponent 
