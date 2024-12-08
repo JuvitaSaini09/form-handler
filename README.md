@@ -31,6 +31,19 @@ A modern, responsive form builder that lets you create, preview, and handle form
 - **Smart Validation**
   - Submit button enables only when all questions are answered
   - Input validation based on question type
+ 
+    ![image](https://github.com/user-attachments/assets/43ae46c0-2664-4276-9664-6b9703789649)
+    ![image](https://github.com/user-attachments/assets/fd1ebfd8-5448-4b28-ad7d-c2201c13d2b8)
+    ![image](https://github.com/user-attachments/assets/d54e0fa9-8182-4ffb-9f4a-a29cec133b82)
+    ![image](https://github.com/user-attachments/assets/5aa074ac-e1f6-4f61-be03-306ebcb72cb7)
+    ![image](https://github.com/user-attachments/assets/f50d7782-c4a7-48f1-90c4-a40e4187a7b1)
+    ![image](https://github.com/user-attachments/assets/c1a4f820-639a-4335-938e-a785c81a65d4)
+
+
+
+
+
+
 
 ## 🚀 Quick Start
 
