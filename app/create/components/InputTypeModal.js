@@ -28,8 +28,8 @@ export default function InputTypeModal({ isOpen, onClose, onSelect }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30" onClick={handleBackdropClick}>
-      <div className="w-[300px] border-[1px] border-gray-200 rounded-2xl p-1 bg-white">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 p-4" onClick={handleBackdropClick}>
+      <div className="w-full max-w-[300px] border-[1px] border-gray-200 rounded-2xl p-1 bg-white">
         <div className="px-4 py-2 bg-gray-50 rounded-lg">
           <h3 className="text-[12px] font-semibold text-gray-500">
             INPUT TYPES

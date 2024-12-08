@@ -50,8 +50,8 @@ const Form = ({ questions, onQuestionsChange }) => {
   };
 
   return (
-    <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
-      <div className="min-h-[1150px] pt-6 flex flex-col gap-6">
+    <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-3 sm:px-6 pb-20">
+      <div className="min-h-[calc(100vh-8rem)] sm:min-h-[1150px] pt-6 flex flex-col gap-6">
         {localQuestions.map((question) => (
           <QuestionBlock 
             key={question.id} 

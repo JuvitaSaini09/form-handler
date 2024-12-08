@@ -58,7 +58,7 @@ export default function CreateForm() {
   };
 
   return (
-    <main className="w-[640px] mx-auto h-screen flex flex-col overflow-hidden">
+    <main className="w-full max-w-[640px] mx-auto min-h-[100dvh] h-screen flex flex-col overflow-hidden px-4 sm:px-0">
       <Header 
         title={formState.title} 
         onTitleChange={handleTitleChange}
