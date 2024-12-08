@@ -10,17 +10,14 @@ const Form = () => {
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
       <div className="min-h-[1150px] pt-6 flex flex-col gap-6">
-        {/* Questions list */}
-       
-          {/* ----------- Question card ----------- */}
+        {/* ----------- Question card ----------- */}
         <QuestionBlock type="singleLine" />
         <QuestionBlock type="shortAnswer" />
         <QuestionBlock type="longAnswer" />
         <QuestionBlock type="number" />
         <QuestionBlock type="url" />
-          {/*------- End of Question card ------- */}
-     
-        {/* Add question button */}
+        {/*------- End of Question card ------- */}
+
         <div className="flex justify-center">
           <button
             onClick={() => setIsModalOpen(true)}

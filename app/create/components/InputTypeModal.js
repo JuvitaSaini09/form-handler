@@ -1,8 +1,8 @@
-import ShortAnswer from "@/app/components/icons/ShortAnswer";
-import LongAnswer from "@/app/components/icons/LongAnswer";
-import SingleSelect from "@/app/components/icons/SingleSelect";
+import ShortAnswer from "@/app/components/icons/ShortAnswerIcon";
+import LongAnswer from "@/app/components/icons/LongAnswerIcon";
+import SingleSelect from "@/app/components/icons/SingleSelectIcon";
 import Date from "@/app/components/icons/Date";
-import Url from "@/app/components/icons/Url";
+import Url from "@/app/components/icons/UrlIcon";
 
 const inputTypes = [
   { type: 'short_answer', label: 'Short answer', Icon: ShortAnswer },
