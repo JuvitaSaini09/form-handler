@@ -43,12 +43,12 @@ const Form = ({ setFormCompleteness, onSubmitSuccess }) => {
       />
     ),
     longAnswer: (questionId) => (
-      <input
+      <textarea
         type="text"
         placeholder=""
         value={answers[questionId] || ""}
         onChange={(e) => handleInputChange(questionId, e.target.value)}
-        className="h-20 w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200"
+        className="h-20 w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200 scrollbar-hide resize-none overflow-y-auto"
       />
     ),
     url: (questionId) => (
