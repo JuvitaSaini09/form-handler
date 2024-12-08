@@ -12,7 +12,7 @@ export default function Home() {
         </p>
         <Link 
           href="/create"
-          className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-block px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
         >
           Create New Form
         </Link>
