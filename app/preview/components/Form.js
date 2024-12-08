@@ -81,19 +81,19 @@ const Form = ({ setFormCompleteness }) => {
   };
 
   return (
-    <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
-      <div className="min-h-[1150px] pt-6 flex flex-col gap-8">
+    <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-3 sm:px-6 pb-20">
+      <div className="min-h-[calc(100vh-8rem)] sm:min-h-[1150px] pt-6 flex flex-col gap-8">
         {currentForm.questions?.map((question, index) => (
           <div key={index} className="flex flex-col gap-[4px]">
-            <div className="font-semibold text-sm">{question.questionText}</div>
+            <div className="font-semibold text-xs sm:text-sm">{question.questionText}</div>
             {question.questionType === "singleLine"
               ? inputTypes[question.questionType](question)
               : inputTypes[question.questionType](question.questionText)}
           </div>
         ))}
         <div className="flex justify-end">
-          <button className="h-8 border-[1px] rounded-xl pr-[14px] pl-4 flex items-center gap-2 bg-[#00AA45] border-[#1E874B] ">
-            <span className="text-white font-semibold text-sm">Submit</span>
+          <button className="h-8 border-[1px] rounded-xl pr-2 sm:pr-[14px] pl-2 sm:pl-4 flex items-center gap-1 sm:gap-2 bg-[#00AA45] border-[#1E874B]">
+            <span className="text-white font-semibold text-xs sm:text-sm">Submit</span>
           </button>
         </div>
       </div>
