@@ -13,11 +13,23 @@ const Form = () => {
     setIsModalOpen(false);
   };
 
+  const handleTypeChange = (questionId, newType) => {
+    setQuestions(questions.map(question => 
+      question.id === questionId 
+        ? { ...question, type: newType }
+        : question
+    ));
+  };
+
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
       <div className="min-h-[1150px] pt-6 flex flex-col gap-6">
         {questions.map((question) => (
-          <QuestionBlock key={question.id} type={question.type} />
+          <QuestionBlock 
+            key={question.id} 
+            type={question.type} 
+            onTypeChange={(newType) => handleTypeChange(question.id, newType)}
+          />
         ))}
 
         <div className="flex justify-center">

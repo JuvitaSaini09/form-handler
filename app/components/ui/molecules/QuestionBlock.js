@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReorderIcon from "../../icons/ReorderIcon";
 import DropDown from "../../icons/DropDown";
 import LongAnswerInput from "../atoms/LongAnswerInput";
@@ -20,8 +20,64 @@ const QuestionIcons = {
   shortAnswer: ShortAnswerIcon,
 };
 
-const QuestionHeader = ({ type }) => {
+const QuestionTypeDropdown = ({ isOpen, onClose, onSelect, position }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0" 
+      onClick={onClose}
+    >
+      <div 
+        className="absolute w-[300px] border-[1px] border-gray-200 rounded-2xl p-1 bg-white"
+        style={{ top: position.y, left: position.x }}
+      >
+        <div className="px-4 py-2 bg-gray-50 rounded-lg">
+          <h3 className="text-[12px] font-semibold text-gray-500">
+            INPUT TYPES
+          </h3>
+        </div>
+
+        <div className="flex flex-col p-1">
+          {Object.entries(QuestionTypes).map(([type, _]) => {
+            const Icon = QuestionIcons[type];
+            const label = type.charAt(0).toUpperCase() + type.slice(1).replace(/([A-Z])/g, ' $1');
+            
+            return (
+              <button 
+                key={type}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelect(type);
+                }} 
+                className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-md w-full text-left"
+              >
+                <Icon />
+                <span className="text-sm font-medium">{label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const QuestionHeader = ({ type, onTypeChange }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
   const IconComponent = QuestionIcons[type];
+
+  const handleDropdownClick = (e) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    setDropdownPosition({ 
+      x: rect.left, 
+      y: rect.bottom + 5 
+    });
+    setDropdownOpen(true);
+  };
+
   return (
     <div className="flex justify-between items-center gap-2 question-inputs">
       <div>
@@ -37,12 +93,25 @@ const QuestionHeader = ({ type }) => {
         />
       </div>
       <div className="flex items-center gap-2">
-        <div className="flex items-center">
+        <button 
+          className="flex items-center"
+          onClick={handleDropdownClick}
+        >
           {IconComponent && <IconComponent />}
           <DropDown />
-        </div>
+        </button>
         <ReorderIcon />
       </div>
+
+      <QuestionTypeDropdown 
+        isOpen={dropdownOpen}
+        onClose={() => setDropdownOpen(false)}
+        onSelect={(newType) => {
+          onTypeChange(newType);
+          setDropdownOpen(false);
+        }}
+        position={dropdownPosition}
+      />
     </div>
   );
 };
@@ -55,12 +124,12 @@ const QuestionTypes = {
   shortAnswer: ShortAnswerInput,
 };
 
-const QuestionBlock = ({ type }) => {
+const QuestionBlock = ({ type, onTypeChange }) => {
   const InputComponent = QuestionTypes[type];
 
   return (
     <div className="w-full border-[1px] border-gray-200 rounded-2xl p-4 flex flex-col gap-2 hover:bg-gray-50 [&:hover>_.question-inputs_input]:bg-gray-50">
-      <QuestionHeader type={type} />
+      <QuestionHeader type={type} onTypeChange={onTypeChange} />
       {InputComponent && <InputComponent />}
     </div>
   );
