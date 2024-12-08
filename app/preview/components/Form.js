@@ -14,6 +14,13 @@ const Form = ({ setFormCompleteness }) => {
     setFormCompleteness(percentage);
   }, [answers, currentForm.questions, setFormCompleteness]);
 
+  // Check if all questions are answered
+  const isFormComplete = currentForm.questions?.length > 0 && 
+    currentForm.questions.every(question => 
+      answers[question.questionText] !== undefined && 
+      answers[question.questionText] !== ''
+    );
+
   // Handle input changes
   const handleInputChange = (questionId, value) => {
     setAnswers(prev => ({
@@ -92,7 +99,13 @@ const Form = ({ setFormCompleteness }) => {
           </div>
         ))}
         <div className="flex justify-end">
-          <button className="h-8 border-[1px] rounded-xl pr-2 sm:pr-[14px] pl-2 sm:pl-4 flex items-center gap-1 sm:gap-2 bg-[#00AA45] border-[#1E874B]">
+          <button 
+            disabled={!isFormComplete}
+            className={`h-8 border-[1px] rounded-xl pr-2 sm:pr-[14px] pl-2 sm:pl-4 flex items-center gap-1 sm:gap-2 
+              ${isFormComplete 
+                ? 'bg-[#00AA45] border-[#1E874B] hover:bg-[#1E874B]' 
+                : 'bg-[#219653] opacity-50 cursor-not-allowed'}`}
+          >
             <span className="text-white font-semibold text-xs sm:text-sm">Submit</span>
           </button>
         </div>
