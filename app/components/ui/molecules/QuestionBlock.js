@@ -63,7 +63,14 @@ const QuestionTypeDropdown = ({ isOpen, onClose, onSelect, position }) => {
   );
 };
 
-const QuestionHeader = ({ type, onTypeChange }) => {
+const QuestionHeader = ({ 
+  type, 
+  questionText,
+  helpText,
+  onQuestionTextChange,
+  onHelpTextChange,
+  onTypeChange 
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
   const IconComponent = QuestionIcons[type];
@@ -83,11 +90,15 @@ const QuestionHeader = ({ type, onTypeChange }) => {
       <div>
         <input
           type="text"
+          value={questionText}
+          onChange={onQuestionTextChange}
           placeholder="Write a question"
           className="outline-none border-0 font-semibold text-base w-full max-w-[300px] overflow-x-auto whitespace-nowrap"
         />
         <input
           type="text"
+          value={helpText}
+          onChange={onHelpTextChange}
           placeholder="Write a help text or caption (leave empty if not needed)."
           className="outline-none border-0 font-normal text-xs w-full max-w-[300px] overflow-x-auto whitespace-nowrap"
         />
@@ -124,13 +135,37 @@ const QuestionTypes = {
   shortAnswer: ShortAnswerInput,
 };
 
-const QuestionBlock = ({ type, onTypeChange }) => {
+const QuestionBlock = ({ id, type, questionText, helpText, options, onUpdate }) => {
   const InputComponent = QuestionTypes[type];
+
+  const handleQuestionTextChange = (e) => {
+    onUpdate({ questionText: e.target.value });
+  };
+
+  const handleHelpTextChange = (e) => {
+    onUpdate({ helpText: e.target.value });
+  };
+
+  const handleOptionsChange = (newOptions) => {
+    onUpdate({ options: newOptions });
+  };
 
   return (
     <div className="w-full border-[1px] border-gray-200 rounded-2xl p-4 flex flex-col gap-2 hover:bg-gray-50 [&:hover>_.question-inputs_input]:bg-gray-50">
-      <QuestionHeader type={type} onTypeChange={onTypeChange} />
-      {InputComponent && <InputComponent />}
+      <QuestionHeader 
+        type={type} 
+        questionText={questionText}
+        helpText={helpText}
+        onQuestionTextChange={handleQuestionTextChange}
+        onHelpTextChange={handleHelpTextChange}
+        onTypeChange={(newType) => onUpdate({ type: newType })}
+      />
+      {InputComponent && (
+        <InputComponent 
+          options={options}
+          onOptionsChange={handleOptionsChange}
+        />
+      )}
     </div>
   );
 };

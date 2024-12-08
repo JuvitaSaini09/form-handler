@@ -1,34 +1,62 @@
 "use client";
 import AddSymbol from "@/app/components/icons/AddSymbol";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputTypeModal from "./InputTypeModal";
 import QuestionBlock from "@/app/components/ui/molecules/QuestionBlock";
 
-const Form = () => {
+const Form = ({ questions, onQuestionsChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [localQuestions, setLocalQuestions] = useState([]);
+
+  // Update local state when props change
+  useEffect(() => {
+    setLocalQuestions(questions);
+  }, [questions]);
 
   const handleAddQuestion = (type) => {
-    setQuestions([...questions, { id: Date.now(), type }]);
+    const newQuestion = {
+      id: Date.now(),
+      type,
+      questionText: "",
+      helpText: "",
+      options: type === 'singleLine' ? ['', ''] : [],
+      isValid: false
+    };
+    
+    const updatedQuestions = [...localQuestions, newQuestion];
+    setLocalQuestions(updatedQuestions);
+    onQuestionsChange(updatedQuestions);
     setIsModalOpen(false);
   };
 
-  const handleTypeChange = (questionId, newType) => {
-    setQuestions(questions.map(question => 
-      question.id === questionId 
-        ? { ...question, type: newType }
-        : question
-    ));
+  const handleQuestionUpdate = (questionId, updates) => {
+    const updatedQuestions = localQuestions.map(question => {
+      if (question.id === questionId) {
+        const updatedQuestion = { ...question, ...updates };
+        // Enhanced validation including options check
+        updatedQuestion.isValid = Boolean(
+          updatedQuestion.questionText?.trim() && 
+          (updatedQuestion.type !== 'singleLine' || 
+           (updatedQuestion.options?.length >= 2 && 
+            updatedQuestion.options.every(opt => opt.trim().length > 0))) // Check if options are filled
+        );
+        return updatedQuestion;
+      }
+      return question;
+    });
+    
+    setLocalQuestions(updatedQuestions);
+    onQuestionsChange(updatedQuestions);
   };
 
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-6 pb-20">
       <div className="min-h-[1150px] pt-6 flex flex-col gap-6">
-        {questions.map((question) => (
+        {localQuestions.map((question) => (
           <QuestionBlock 
             key={question.id} 
-            type={question.type} 
-            onTypeChange={(newType) => handleTypeChange(question.id, newType)}
+            {...question}
+            onUpdate={(updates) => handleQuestionUpdate(question.id, updates)}
           />
         ))}
 
