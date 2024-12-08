@@ -1,31 +1,34 @@
 import { useFormContext } from "@/app/context/FormContext";
 import { useState, useEffect } from "react";
 
-const Form = ({ setFormCompleteness }) => {
+const Form = ({ setFormCompleteness, onSubmitSuccess }) => {
   const { currentForm } = useFormContext();
   const [answers, setAnswers] = useState({});
 
   // Calculate and update completion percentage whenever answers change
   useEffect(() => {
     const totalQuestions = currentForm.questions?.length || 0;
-    const answeredQuestions = Object.values(answers).filter(answer => 
-      answer !== undefined && answer !== '').length;
+    const answeredQuestions = Object.values(answers).filter(
+      (answer) => answer !== undefined && answer !== ""
+    ).length;
     const percentage = Math.round((answeredQuestions / totalQuestions) * 100);
     setFormCompleteness(percentage);
   }, [answers, currentForm.questions, setFormCompleteness]);
 
   // Check if all questions are answered
-  const isFormComplete = currentForm.questions?.length > 0 && 
-    currentForm.questions.every(question => 
-      answers[question.questionText] !== undefined && 
-      answers[question.questionText] !== ''
+  const isFormComplete =
+    currentForm.questions?.length > 0 &&
+    currentForm.questions.every(
+      (question) =>
+        answers[question.questionText] !== undefined &&
+        answers[question.questionText] !== ""
     );
 
   // Handle input changes
   const handleInputChange = (questionId, value) => {
-    setAnswers(prev => ({
+    setAnswers((prev) => ({
       ...prev,
-      [questionId]: value
+      [questionId]: value,
     }));
   };
 
@@ -34,7 +37,7 @@ const Form = ({ setFormCompleteness }) => {
       <input
         type="text"
         placeholder=""
-        value={answers[questionId] || ''}
+        value={answers[questionId] || ""}
         onChange={(e) => handleInputChange(questionId, e.target.value)}
         className="h-8 w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200"
       />
@@ -43,7 +46,7 @@ const Form = ({ setFormCompleteness }) => {
       <input
         type="text"
         placeholder=""
-        value={answers[questionId] || ''}
+        value={answers[questionId] || ""}
         onChange={(e) => handleInputChange(questionId, e.target.value)}
         className="h-20 w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200"
       />
@@ -52,7 +55,7 @@ const Form = ({ setFormCompleteness }) => {
       <input
         type="url"
         placeholder=""
-        value={answers[questionId] || ''}
+        value={answers[questionId] || ""}
         onChange={(e) => handleInputChange(questionId, e.target.value)}
         className="h-8 w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200"
       />
@@ -61,7 +64,7 @@ const Form = ({ setFormCompleteness }) => {
       <input
         type="number"
         placeholder=""
-        value={answers[questionId] || ''}
+        value={answers[questionId] || ""}
         onChange={(e) => handleInputChange(questionId, e.target.value)}
         className="h-8 w-full rounded-lg py-[6px] px-2 border-[1px] border-gray-200 focus:ring-0 focus:outline-none focus:border-2 focus:border-gray-200"
       />
@@ -75,7 +78,9 @@ const Form = ({ setFormCompleteness }) => {
               name={question.questionText}
               value={option}
               checked={answers[question.questionText] === option}
-              onChange={(e) => handleInputChange(question.questionText, e.target.value)}
+              onChange={(e) =>
+                handleInputChange(question.questionText, e.target.value)
+              }
               className="w-4 h-4 border-gray-500 text-[#00AA45] focus:ring-[#1E874B] checked:border-[#1E874B] checked:bg-[#00AA45]"
             />
             <span className="text-[#0D0D0D] font-medium text-[14px]">
@@ -87,26 +92,37 @@ const Form = ({ setFormCompleteness }) => {
     ),
   };
 
+  const handleSubmit = () => {
+    onSubmitSuccess();
+  };
+
   return (
     <section className="flex-1 overflow-y-auto border-x-[1px] border-gray-200 scrollbar-hide px-3 sm:px-6 pb-20">
       <div className="min-h-[calc(100vh-8rem)] sm:min-h-[1150px] pt-6 flex flex-col gap-8">
         {currentForm.questions?.map((question, index) => (
           <div key={index} className="flex flex-col gap-[4px]">
-            <div className="font-semibold text-xs sm:text-sm">{question.questionText}</div>
+            <div className="font-semibold text-xs sm:text-sm">
+              {question.questionText}
+            </div>
             {question.questionType === "singleLine"
               ? inputTypes[question.questionType](question)
               : inputTypes[question.questionType](question.questionText)}
           </div>
         ))}
         <div className="flex justify-end">
-          <button 
+          <button
+            onClick={handleSubmit}
             disabled={!isFormComplete}
             className={`h-8 border-[1px] rounded-xl pr-2 sm:pr-[14px] pl-2 sm:pl-4 flex items-center gap-1 sm:gap-2 
-              ${isFormComplete 
-                ? 'bg-[#00AA45] border-[#1E874B] hover:bg-[#1E874B]' 
-                : 'bg-[#219653] opacity-50 cursor-not-allowed'}`}
+              ${
+                isFormComplete
+                  ? "bg-[#00AA45] border-[#1E874B] hover:bg-[#1E874B]"
+                  : "bg-[#219653] opacity-50 cursor-not-allowed"
+              }`}
           >
-            <span className="text-white font-semibold text-xs sm:text-sm">Submit</span>
+            <span className="text-white font-semibold text-xs sm:text-sm">
+              Submit
+            </span>
           </button>
         </div>
       </div>
