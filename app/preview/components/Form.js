@@ -1,10 +1,14 @@
+import { useFormContext } from "@/app/context/FormContext";
+
 const Form = ({}) => {
+
+  const {currentForm} = useFormContext();
+  console.log("currentForm",currentForm)
   const questions = [
     {
       questionText: "What is your gender?",
       questionType: "shortAnswer",
     },
-
     {
       questionText: "What is your age?",
       questionType: "longAnswer",
@@ -21,7 +25,7 @@ const Form = ({}) => {
     {
       questionText: "What is your name?",
       questionType: "singleLine",
-      options: ["Option 1", "Option 2","optoin4"],
+      options: ["Option 1", "Option 2","Option 3"],
     },
   ];
 

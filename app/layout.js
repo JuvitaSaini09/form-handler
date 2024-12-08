@@ -1,9 +1,10 @@
+import { FormProvider } from "./context/FormContext";
 import "./globals.css";
-import { Inter } from 'next/font/google';
+import { Inter } from "next/font/google";
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.className}>
       <body>
-        {children}
+        <FormProvider>{children}</FormProvider>
       </body>
     </html>
   );
