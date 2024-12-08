@@ -1,8 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Form Builder 📝
 
-## Getting Started
+A modern, responsive form builder that lets you create, preview, and handle form submissions with ease. Think of it as a simplified version of Google Forms!
 
-First, run the development server:
+## ✨ Features
+
+### Form Creation
+- **Multiple Question Types**
+  - Short Answer
+  - Long Answer
+  - Single Select (Multiple Choice)
+  - URL Input
+  - Number Input
+
+- **Real-time Validation**
+  - Form title validation
+  - Question validation
+  - Option validation for single select
+
+- **Dynamic Form Building**
+  - Add unlimited questions
+  - Reorder questions (coming soon)
+  - Edit questions on the fly
+
+### Form Preview
+- **Live Preview Mode**
+  - See exactly how your form will look
+  - Form completion progress bar
+  - Responsive design for all devices
+
+- **Smart Validation**
+  - Submit button enables only when all questions are answered
+  - Input validation based on question type
+
+## 🚀 Quick Start
+
+1. Clone and run:
 
 ```bash
 npm run dev
