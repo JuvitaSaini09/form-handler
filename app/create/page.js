@@ -6,12 +6,8 @@ import Form from "./components/Form";
 import Header from "./components/Header";
 
 export default function CreateForm() {
-  const { updateCurrentForm, saveForm } = useFormContext();
-  const [formState, setFormState] = useState({
-    title: "",
-    questions: [],
-    isValid: false
-  });
+  const { updateCurrentForm, saveForm,formState, setFormState} = useFormContext();
+
 
   const validateForm = (title, questions) => {
     // Basic validation

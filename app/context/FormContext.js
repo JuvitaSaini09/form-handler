@@ -9,6 +9,13 @@ export function FormProvider({ children }) {
     title: "",
     questions: [],
   });
+  
+    const [formState, setFormState] = useState({
+        title: "",
+        questions: [],
+        isValid: false
+      });
+    
 
   const updateCurrentForm = (formData) => {
     setCurrentForm(formData);
@@ -19,7 +26,7 @@ export function FormProvider({ children }) {
   };
 
   return (
-    <FormContext.Provider value={{ forms, currentForm, updateCurrentForm, saveForm }}>
+    <FormContext.Provider value={{ forms, currentForm, updateCurrentForm, saveForm,formState, setFormState }}>
       {children}
     </FormContext.Provider>
   );
