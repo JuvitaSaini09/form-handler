@@ -5,14 +5,12 @@ import { useState } from "react";
 import Header from "./components/Header";
 
 export default function PreviewForm() {
+  const [formCompleteness, setFormCompleteness] = useState(0);
 
-    const userAnswers = useState({
-
-    });
   return (
     <main className="w-[640px] mx-auto h-screen flex flex-col overflow-hidden">
-      <Header formCompletenessValue={70} />
-      <Form />
+      <Header formCompletenessValue={formCompleteness} />
+      <Form setFormCompleteness={setFormCompleteness} />
     </main>
   );
 } 
